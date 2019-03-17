@@ -20,7 +20,7 @@ public class JobData {
     private static Boolean isDataLoaded = false;
 
     private static ArrayList<HashMap<String, String>> allJobs;
-
+    private static String[] headerNames;
     /**
      * Fetch list of all values from loaded data,
      * without duplicates, for a given column.
@@ -84,9 +84,37 @@ public class JobData {
         return jobs;
     }
 
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+
+        // load data, if not already loaded
+        loadData();
+
+        ArrayList<HashMap<String, String>> valueJobs = new ArrayList<>();
+
+        for (HashMap<String, String> row : allJobs) {
+
+            for (String headers : headerNames) {
+                //String aColumn = "employer";
+                String aValue = row.get(headers);
+
+                if(aValue == null) {
+                    continue;
+                }
+                if (aValue.toLowerCase().contains(value.toLowerCase())) {
+                    valueJobs.add(row);
+                    break;
+                }
+            }
+        }
+
+        return valueJobs;
+    }
     /**
      * Read in data from a CSV file and store it in a list
      */
+
+        //search all coloumns for a search term
+        //no duplicate entries
     private static void loadData() {
 
         // Only load data once
@@ -102,7 +130,8 @@ public class JobData {
             List<CSVRecord> records = parser.getRecords();
             Integer numberOfColumns = records.get(0).size();
             String[] headers = parser.getHeaderMap().keySet().toArray(new String[numberOfColumns]);
-
+            //headerNames = new ArrayList<>();
+            headerNames = headers;
             allJobs = new ArrayList<>();
 
             // Put the records into a more friendly format
@@ -111,6 +140,7 @@ public class JobData {
 
                 for (String headerLabel : headers) {
                     newJob.put(headerLabel, record.get(headerLabel));
+
                 }
 
                 allJobs.add(newJob);

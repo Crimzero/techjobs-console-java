@@ -64,7 +64,7 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+                    printJobs(JobData.findByValue(searchTerm));
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -135,33 +135,9 @@ public class TechJobs {
        }
        }
    }
-       //System.out.println(row);
+
    }
-
-       /** public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
-
-            ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
-
-            for (HashMap<String, String> row : allJobs) {
-
-                String aValue = row.get(column);
-
-                if (aValue.contains(value)) {
-                    jobs.add(row);
-                }
-            }
-
-            return jobs;
-        }
-*/
-
-        //if no entries contain the search term return a message
-
-        //System.out.println(someJobs);
     }
-    //private static void findByValue();
-    //search all coloumns for a search term
-    //no duplicate entries
 
 
 
