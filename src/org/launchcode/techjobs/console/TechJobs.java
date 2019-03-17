@@ -2,7 +2,9 @@ package org.launchcode.techjobs.console;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Map.Entry;
 
 /**
  * Created by LaunchCode
@@ -16,10 +18,11 @@ public class TechJobs {
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
         columnChoices.put("core competency", "Skill");
+        columnChoices.put("all", "All");
         columnChoices.put("employer", "Employer");
         columnChoices.put("location", "Location");
         columnChoices.put("position type", "Position Type");
-        columnChoices.put("all", "All");
+
 
         // Top-level menu options
         HashMap<String, String> actionChoices = new HashMap<>();
@@ -110,7 +113,55 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+    //take the search term and print our all colomns for entries that contain the search term
+        if(someJobs.isEmpty()) {
+            System.out.println("Search term not found!");
+        }
+   for (HashMap<String, String> row : someJobs) {
+       ArrayList<Map.Entry<String, String>> array = new ArrayList<>();
+       array.addAll(row.entrySet());
 
-        System.out.println("printJobs is not implemented yet");
+
+       // Loop over ArrayList of Entry elements.
+       for (Map.Entry<String, String> entry : array) {
+           // Use each ArrayList element.
+           String key = entry.getKey();
+           String value = entry.getValue();
+
+       if(key.equals("position type")) {
+           System.out.println("\n*****\n" + key + ": " + value);
+       } else {
+           System.out.println( key + ": " + value);
+       }
+       }
+   }
+       //System.out.println(row);
+   }
+
+       /** public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
+
+            ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+            for (HashMap<String, String> row : allJobs) {
+
+                String aValue = row.get(column);
+
+                if (aValue.contains(value)) {
+                    jobs.add(row);
+                }
+            }
+
+            return jobs;
+        }
+*/
+
+        //if no entries contain the search term return a message
+
+        //System.out.println(someJobs);
     }
-}
+    //private static void findByValue();
+    //search all coloumns for a search term
+    //no duplicate entries
+
+
+
